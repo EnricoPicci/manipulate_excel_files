@@ -10,7 +10,7 @@ from src.upload_rfi_rfp_data_to_qdrant import upload_rfi_rfp_questions
 folder_path = "test_data/excel_files"
 languages = ["en", "it", "fr", "de", "es"]
 
-collection_name = "r_r_questions_1"
+collection_name = "r_r_questions"
 
 client = OpenAI()
 model = "text-embedding-3-small"
@@ -25,6 +25,7 @@ qclient = QdrantClient(
 
 records = records_from_excel_files(folder_path)
 question_records = records_from_rfi_rfp(records, languages)
+question_records = question_records[:5]
 
 upload_rfi_rfp_questions(
     question_records, collection_name, client, qclient, model, verbose=True

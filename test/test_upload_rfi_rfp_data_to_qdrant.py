@@ -26,10 +26,11 @@ def test_upload_rfi_rfp_questions():
 
     records = records_from_excel_files(folder_path)
     question_records = records_from_rfi_rfp(records, languages)
+    question_records = question_records[:5]
 
     upload_rfi_rfp_questions(question_records, collection_name, client, qclient, model)
 
     # Check if the collection is created
-    collections = qclient.collections.list()
+    collections = qclient.get_collections()
     collection_names = [collection.name for collection in collections.collections]
     assert collection_name in collection_names

@@ -2,6 +2,7 @@ import uuid
 from openai import OpenAI
 from qdrant_client import QdrantClient, models
 
+from src.encoding import encode_sentence
 from test.embedding_models import get_embedding_model_vec_size
 
 
@@ -33,16 +34,6 @@ def generate_point_from_rfi_rfp_question(
         payload=payload,
     )
     return point
-
-
-def encode_sentence(text, client, embeddings_model="text-embedding-3-small"):
-    # client must be an instance of OpenAI class, if not create one
-    if not isinstance(client, OpenAI):
-        client = OpenAI()
-    text = text.replace("\n", " ")
-    return (
-        client.embeddings.create(input=[text], model=embeddings_model).data[0].embedding
-    )
 
 
 def generate_uuid():

@@ -53,7 +53,7 @@ def test_records_from_rfi_rfp():
             and "Language" in record
             and "Domain" in record
             and "Date" in record
-            and "File Path" in record
+            and "File_Path" in record
             for record in new_records
         ]
     )
