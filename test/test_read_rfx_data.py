@@ -1,5 +1,5 @@
 from src.read_excels import records_from_excel_files
-from src.read_rfx_data import records_from_rfx
+from src.read_rfx_historical_data import records_from_rfx_historical_data
 
 
 def test_records_from_rfx():
@@ -7,7 +7,7 @@ def test_records_from_rfx():
     languages = ["en", "it", "fr", "de", "es"]
 
     records = records_from_excel_files(folder_path)
-    new_records = records_from_rfx(records, languages)
+    new_records = records_from_rfx_historical_data(records, languages)
 
     assert len(new_records) > 10
     assert all(
@@ -43,7 +43,7 @@ def test_records_from_rfx():
     languages = ["en", "it", "fr", "de", "es"]
 
     records = records_from_excel_files(folder_path, mandatory_columns)
-    new_records = records_from_rfx(records, languages)
+    new_records = records_from_rfx_historical_data(records, languages)
 
     assert len(new_records) > 10
     assert all(

@@ -43,3 +43,7 @@ def read_excel_files(excel_files, mandatory_columns=[]):
 def records_from_excel_files(folder_path, mandatory_columns=[]):
     excel_files = get_excel_file_paths(folder_path)
     return read_excel_files(excel_files, mandatory_columns)
+
+
+def read_excel_file(excel_file, mandatory_columns=[]):
+    return read_excel_files([excel_file], mandatory_columns)

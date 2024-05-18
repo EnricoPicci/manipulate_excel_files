@@ -3,8 +3,8 @@ from openai import OpenAI
 from qdrant_client import QdrantClient
 
 from src.read_excels import records_from_excel_files
-from src.read_rfx_data import records_from_rfx
-from src.upload_rfx_data_to_qdrant import upload_rfx_questions
+from src.read_rfx_historical_data import records_from_rfx_historical_data
+from src.upload_rfx_historical_data_to_qdrant import upload_rfx_questions
 
 
 def test_upload_rfx_questions():
@@ -25,7 +25,7 @@ def test_upload_rfx_questions():
     )
 
     records = records_from_excel_files(folder_path)
-    question_records = records_from_rfx(records, languages)
+    question_records = records_from_rfx_historical_data(records, languages)
     question_records = question_records[:5]
 
     upload_rfx_questions(question_records, collection_name, client, qclient, model)

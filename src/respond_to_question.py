@@ -80,6 +80,7 @@ def build_response_multi_records(
 
     # add the original question and the new response to the record
     answer_rec["num"] = rec_num
+    answer_rec["new_prev"] = "new"
     answer_rec["question"] = question
     answer_rec["response"] = new_response
     answer_rec["domain"] = "-"
@@ -95,6 +96,7 @@ def build_response_multi_records(
         answer_rec = {}
         rec_num += 1
         answer_rec["num"] = rec_num
+        answer_rec["new_prev"] = f"prev_{i}"
         answer_rec["question"] = answer["question"]
         answer_rec["response"] = answer["answer"]
         answer_rec["domain"] = answer["domain"]

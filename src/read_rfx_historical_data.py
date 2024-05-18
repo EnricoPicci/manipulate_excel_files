@@ -8,7 +8,7 @@
 import pandas as pd
 
 
-def records_from_rfx(records, languages):
+def records_from_rfx_historical_data(records, languages):
     """
     Extracts relevant information from the given records based on the specified languages.
 
