@@ -2,7 +2,7 @@ import os
 from openai import OpenAI
 from qdrant_client import QdrantClient
 
-from src.build_response import summarize_response
+from src.respond_to_question import build_response, summarize_response
 from src.query_data import search_answers
 
 
@@ -35,3 +35,12 @@ def test_summarize_response():
     new_response = summarize_response(answers_records=answers, verbose=True)
 
     assert len(new_response) > 0
+
+
+def test_build_response():
+    question = "Do you comply with GDPR and other local EU Data Protection regulations?"
+    language = "en"
+
+    response_record = build_response(question=question, language=language, verbose=True)
+
+    assert len(response_record) > 0
