@@ -45,33 +45,86 @@ Previous answers:
     return result
 
 
-def build_response(
+# returns a list of records (dictionaries):
+# the first record contains the original question and the new summarized response
+# the rest of the records contain the previous answers
+def build_response_multi_records(
     question,
     language,
-    prompt=None,
+    qclient,
+    collection_name,
+    openai_client,
     embeddings_model="text-embedding-3-small",
+    prompt=None,
     n_answers=5,
     verbose=False,
 ):
-    collection_name = "r_r_questions_1"
-
-    openai_client = OpenAI()
-    embeddings_model = "text-embedding-3-small"
-
-    qdrant_api_key = os.getenv("QDRANT_API_KEY")
-    qdrant_url = os.getenv("QDRANT_API_URL")
-    qclient = QdrantClient(
-        url=qdrant_url,
-        api_key=qdrant_api_key,
-        timeout=60,
-    )
     answers = search_answers(
         question=question,
         language=language,
-        qclient=qclient,
         openai_client=openai_client,
-        embeddings_model=embeddings_model,
+        qclient=qclient,
         collection=collection_name,
+        embeddings_model=embeddings_model,
+        n_answers=n_answers,
+        verbose=verbose,
+    )
+
+    new_response = summarize_response(
+        answers_records=answers, prompt=prompt, verbose=verbose
+    )
+
+    answers_records = []
+    answer_rec = {}
+    rec_num = 0
+
+    # add the original question and the new response to the record
+    answer_rec["num"] = rec_num
+    answer_rec["question"] = question
+    answer_rec["response"] = new_response
+    answer_rec["domain"] = "-"
+    answer_rec["date"] = "-"
+    answer_rec["file"] = "-"
+    answer_rec["id"] = "-"
+    answers_records.append(answer_rec)
+
+    # answers is a list of dictionaries with keys: question, answer, domain, date, file
+    # we need to create a new record foe each of these dictionaries containing a series of fields like these
+    # num, question, answer, domain, date, file
+    for i, answer in enumerate(answers):
+        answer_rec = {}
+        rec_num += 1
+        answer_rec["num"] = rec_num
+        answer_rec["question"] = answer["question"]
+        answer_rec["response"] = answer["answer"]
+        answer_rec["domain"] = answer["domain"]
+        answer_rec["date"] = answer["date"]
+        answer_rec["file"] = answer["file"]
+        answer_rec["id"] = answer["id"]
+        answers_records.append(answer_rec)
+
+    return answers_records
+
+
+# returns a single record (dictionary) with the original question and the new response and the previous answers
+def build_response_one_record(
+    question,
+    language,
+    qclient,
+    collection_name,
+    openai_client,
+    embeddings_model="text-embedding-3-small",
+    prompt=None,
+    n_answers=5,
+    verbose=False,
+):
+    answers = search_answers(
+        question=question,
+        language=language,
+        openai_client=openai_client,
+        qclient=qclient,
+        collection=collection_name,
+        embeddings_model=embeddings_model,
         n_answers=n_answers,
         verbose=verbose,
     )

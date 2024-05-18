@@ -43,6 +43,7 @@ def search_answers(
                 "domain": hit.payload["domain"],
                 "date": hit.payload["date"],
                 "file": hit.payload["file"],
+                "id": hit.id,
             }
         )
 
