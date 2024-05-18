@@ -6,7 +6,7 @@ from src.encoding import encode_sentence
 from test.embedding_models import get_embedding_model_vec_size
 
 
-def generate_point_from_rfi_rfp_question(
+def generate_point_from_rfx_question(
     question,
     answer,
     language,
@@ -76,7 +76,7 @@ def upload_points(points, collection_name, qclient, vec_size, verbose=False):
         )
 
 
-def upload_rfi_rfp_questions(
+def upload_rfx_questions(
     question_records,
     collection_name,
     openai_client,
@@ -99,7 +99,7 @@ def upload_rfi_rfp_questions(
         date = question_rec["Date"]
         file = question_rec["File_Path"]
 
-        point = generate_point_from_rfi_rfp_question(
+        point = generate_point_from_rfx_question(
             question,
             answer,
             language,

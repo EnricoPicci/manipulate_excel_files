@@ -1,4 +1,4 @@
-from src.read_data import get_excel_file_paths, records_from_excel_files
+from src.read_excels import get_excel_file_paths, records_from_excel_files
 
 
 def test_get_excel_file_paths():

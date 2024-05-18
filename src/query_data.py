@@ -1,5 +1,5 @@
 from qdrant_client import models
-from src.upload_rfi_rfp_data_to_qdrant import encode_sentence
+from src.upload_rfx_data_to_qdrant import encode_sentence
 
 
 def search_answers(

@@ -1,4 +1,4 @@
-# records_from_rfi_rfp is a function that takes a list of dictionaries containing the following fields
+# records_from_rfx is a function that takes a list of dictionaries containing the following fields
 # Question_en	Question_it	Question_fr	Question_de	Question_es	Answer_en	Answer_it	Answer_fr	Answer_de	Answer_es	Domain_1	Domain_2	Domain_3
 # the postfix _en, _it, _fr, _de, _es are the languages of the questions and answers
 # and returns a list of dictionaries containing the following fields
@@ -8,7 +8,7 @@
 import pandas as pd
 
 
-def records_from_rfi_rfp(records, languages):
+def records_from_rfx(records, languages):
     """
     Extracts relevant information from the given records based on the specified languages.
 

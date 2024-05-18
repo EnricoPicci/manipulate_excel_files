@@ -1,13 +1,13 @@
-from src.read_data import records_from_excel_files
-from src.read_rfi_rfp_data import records_from_rfi_rfp
+from src.read_excels import records_from_excel_files
+from src.read_rfx_data import records_from_rfx
 
 
-def test_records_from_rfi_rfp():
+def test_records_from_rfx():
     folder_path = "test_data/excel_files"
     languages = ["en", "it", "fr", "de", "es"]
 
     records = records_from_excel_files(folder_path)
-    new_records = records_from_rfi_rfp(records, languages)
+    new_records = records_from_rfx(records, languages)
 
     assert len(new_records) > 10
     assert all(
@@ -23,7 +23,7 @@ def test_records_from_rfi_rfp():
     )
 
 
-def test_records_from_rfi_rfp():
+def test_records_from_rfx():
     folder_path = "test_data/excel_files"
     mandatory_columns = [
         "Question_en",
@@ -43,7 +43,7 @@ def test_records_from_rfi_rfp():
     languages = ["en", "it", "fr", "de", "es"]
 
     records = records_from_excel_files(folder_path, mandatory_columns)
-    new_records = records_from_rfi_rfp(records, languages)
+    new_records = records_from_rfx(records, languages)
 
     assert len(new_records) > 10
     assert all(
